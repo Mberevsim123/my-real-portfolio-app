@@ -1,0 +1,38 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<!-- Custom admin CSS with system theme support -->
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/admin-custom.css' %}?v=4">
+
+<!-- System theme detection script -->
+<script>
+    // System theme detection - applies proper class based on system preference
+    (function () {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        const html = document.documentElement;
+
+        function applyTheme() {
+            if (prefersDark.matches) {
+                html.style.colorScheme = 'dark';
+            } else {
+                html.style.colorScheme = 'light';
+            }
+        }
+
+        applyTheme();
+        prefersDark.addEventListener('change', applyTheme);
+    })();
+</script>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        ⬡ Portfolio Admin
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

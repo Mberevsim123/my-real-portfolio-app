@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: #2563eb;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 20px;
+            background: #f9fafb;
+        }
+
+        .message-box {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 3px solid #2563eb;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>New Contact Message</h2>
+        </div>
+        <div class="content">
+            <p><strong>From:</strong> {{ message.name }} ({{ message.email }})</p>
+            <p><strong>Subject:</strong> {{ message.full_subject }}</p>
+            <p><strong>Date:</strong> {{ message.created_at|date:"F j, Y H:i" }}</p>
+            <div class="message-box">
+                <strong>Message:</strong>
+                <p>{{ message.message|linebreaks }}</p>
+            </div>
+            <div style="text-align: center;">
+                <a href="{{ admin_url }}" class="button">View in Admin Panel</a>
+            </div>
+        </div>
+        <div class="footer">
+            <p>This is an automated notification from your portfolio website.</p>
+        </div>
+    </div>
+</body>
+
+</html>

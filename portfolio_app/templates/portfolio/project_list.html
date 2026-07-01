@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Projects - Backend Developer Portfolio{% endblock %}
+
+{% block meta_description %}
+Explore my portfolio of web applications and backend systems built with Django and Python.
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto text-center mb-5">
+            <h1 class="display-4 fw-bold mb-3">My Projects</h1>
+            <div class="divider mx-auto mb-4"></div>
+            <p class="lead text-muted">
+                Explore my portfolio of web applications and backend systems
+            </p>
+        </div>
+    </div>
+
+    ```
+    <!-- Filters -->
+    <div class="row mb-4">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form method="get" class="row g-3">
+                        <div class="col-md-5">
+                            <input type="text" name="q" class="form-control" placeholder="Search projects..."
+                                value="{{ request.GET.q }}">
+                        </div>
+
+                        <div class="col-md-4">
+                            <select name="order" class="form-select">
+                                <option value="-created_at" {% if current_order == "-created_at" %}selected{% endif %}>
+                                    Latest
+                                </option>
+
+                                <option value="title" {% if current_order == "title" %}selected{% endif %}>
+                                    Title A-Z
+                                </option>
+
+                                <option value="-title" {% if current_order == "-title" %}selected{% endif %}>
+                                    Title Z-A
+                                </option>
+
+                                <option value="-views_count" {% if current_order == "-views_count" %}selected{% endif %}>
+                                    Most Viewed
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-search me-2"></i>
+                                Filter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-4 mb-4">
+            <div class="card project-card h-100 shadow-sm">
+
+                {% if project.image %}
+                <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" loading="lazy">
+                {% else %}
+                <div class="card-img-top bg-secondary text-center py-5">
+                    <i class="fas fa-code fa-4x text-white"></i>
+                </div>
+                {% endif %}
+
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title fw-bold">{{ project.title }}</h5>
+
+                        {% if project.featured %}
+                        <span class="badge bg-primary">Featured</span>
+                        {% endif %}
+                    </div>
+
+                    <p class="card-text text-muted">
+                        {{ project.short_description|truncatewords:20 }}
+                    </p>
+
+                    <div class="tech-stack mb-3">
+                        {% for tech in project.get_technologies_list|slice:":3" %}
+                        <span class="badge bg-light text-dark me-1">
+                            {{ tech }}
+                        </span>
+                        {% endfor %}
+
+                        {% if project.get_technologies_list|length > 3 %}
+                        <span class="badge bg-light text-dark">
+                            +{{ project.get_technologies_list|length|add:"-3" }}
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="stats">
+                            <small class="text-muted me-2">
+                                <i class="fas fa-eye"></i>
+                                {{ project.views_count }}
+                            </small>
+                        </div>
+
+                        <a href="{% url 'portfolio:project_detail' project.slug %}"
+                            class="btn btn-sm btn-outline-primary">
+                            View Details
+                            <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
+            <h3>No projects found</h3>
+            <p class="text-muted">
+                Try adjusting your search or filter criteria.
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
+            {% endif %}
+
+            <li class="page-item active">
+                <span class="page-link">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+    {% endif %}
+    ```
+
+</div>
+{% endblock %}
+
+{% block extra_css %}
+
+<style>
+    .divider {
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #2563eb, #60a5fa);
+        border-radius: 3px;
+    }
+
+    .project-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .tech-stack .badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+</style>
+
+{% endblock %}

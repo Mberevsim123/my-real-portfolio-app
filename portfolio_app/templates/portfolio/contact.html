@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Contact Me - Backend Portfolio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto text-center mb-5">
+            <h1 class="display-4 fw-bold mb-3">Get In Touch</h1>
+            <div class="divider mx-auto mb-4"></div>
+            <p class="lead text-muted">Have a project in mind? Let's discuss how I can help you.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-4">Contact Information</h3>
+
+                    <div class="contact-info mb-4">
+                        <div class="d-flex mb-3">
+                            <div class="icon-square bg-primary text-white rounded me-3">
+                                <i class="fas fa-envelope fa-fw"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Email</h6>
+                                <a href="mailto:contact@portfolio.com"
+                                    class="text-decoration-none">contact@portfolio.com</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-3">
+                            <div class="icon-square bg-primary text-white rounded me-3">
+                                <i class="fab fa-github fa-fw"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">GitHub</h6>
+                                <a href="https://github.com/yourusername" target="_blank"
+                                    class="text-decoration-none">github.com/yourusername</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-3">
+                            <div class="icon-square bg-primary text-white rounded me-3">
+                                <i class="fab fa-linkedin fa-fw"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">LinkedIn</h6>
+                                <a href="https://linkedin.com/in/yourusername" target="_blank"
+                                    class="text-decoration-none">linkedin.com/in/yourusername</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="icon-square bg-primary text-white rounded me-3">
+                                <i class="fas fa-map-marker-alt fa-fw"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Location</h6>
+                                <p class="mb-0">San Francisco, CA</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="availability mt-4">
+                        <h5><i class="fas fa-clock text-primary me-2"></i>Response Time</h5>
+                        <p class="text-muted">I typically respond within 24-48 hours during business days.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-4">Send Me a Message</h3>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_css %}
+<style>
+    .divider {
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #2563eb, #60a5fa);
+        border-radius: 3px;
+    }
+
+    .icon-square {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+    }
+</style>
+{% endblock %}
+{% endblock %}

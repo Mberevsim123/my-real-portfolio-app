@@ -1,0 +1,9 @@
+{"level": "INFO", "time": "2026-06-14 12:50:38,613", "module": "signals", "message": "UserProfile created for user: simonmberev@gmail.com"}
+{"level":"INFO","time":"2026-06-15 07:39:49,588","module":"views","message":"User logged out: simonmberev@gmail.com"}
+{"level":"INFO","time":"2026-06-20 00:38:38,240","module":"views","message":"User logged in: mberevwuasimon@gmail.com"}
+{"level":"INFO","time":"2026-06-20 15:04:41,025","module":"services","message":"Contact message received from aondofasimonmberevwua@gmail.com"}
+{"level":"INFO","time":"2026-06-21 12:40:04,711","module":"signals","message":"UserProfile created for user: mberevwuasimon@gmail.com"}
+{"level":"INFO","time":"2026-06-21 12:41:53,991","module":"views","message":"User logged in: mberevwuasimon@gmail.com"}
+{"level":"INFO","time":"2026-06-26 19:38:37,467","module":"services","message":"Contact message received from mberevwuasimon@gmail.com"}
+{"level":"INFO","time":"2026-06-29 17:17:41,850","module":"views","message":"User logged in: mberevwuasimon@gmail.com"}
+{"level":"INFO","time":"2026-07-01 12:31:44,201","module":"views","message":"User logged in: mberevwuasimon@gmail.com"}

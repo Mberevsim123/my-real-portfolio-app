@@ -1,0 +1,1396 @@
+/* ============================================
+   Django Admin — Elevated Design System
+   Supports System Theme (Light/Dark)
+   Palette: Navy · Indigo · Champagne · Gold
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ============================================
+   LIGHT THEME (Default)
+   ============================================ */
+
+:root {
+    /* Core palette */
+    --c-navy: #0a0f1e;
+    --c-navy-mid: #111827;
+    --c-navy-soft: #1a2236;
+    --c-navy-muted: #243047;
+
+    --c-indigo: #4f46e5;
+    --c-indigo-dark: #3730a3;
+    --c-indigo-glow: rgba(79, 70, 229, 0.25);
+    --c-indigo-pale: #eef2ff;
+
+    --c-gold: #d4a853;
+    --c-gold-soft: rgba(212, 168, 83, 0.15);
+
+    --c-champagne: #f5f0e8;
+    --c-surface: #fefefe;
+    --c-surface-2: #f8f9fc;
+    --c-surface-3: #f1f3f8;
+
+    /* Text */
+    --c-text-primary: #0d1117;
+    --c-text-secondary: #4b5563;
+    --c-text-muted: #9ca3af;
+    --c-text-inverse: #ffffff;
+
+    /* Borders */
+    --c-border: #e5e7eb;
+    --c-border-strong: #d1d5db;
+
+    /* Semantic */
+    --c-success: #059669;
+    --c-danger: #dc2626;
+    --c-warning: #d97706;
+    --c-info: #0284c7;
+
+    --c-success-bg: #ecfdf5;
+    --c-danger-bg: #fef2f2;
+    --c-warning-bg: #fffbeb;
+    --c-info-bg: #e0f2fe;
+
+    /* Elevation */
+    --shadow-xs: 0 1px 2px rgba(10, 15, 30, 0.06);
+    --shadow-sm: 0 2px 6px rgba(10, 15, 30, 0.08), 0 1px 3px rgba(10, 15, 30, 0.05);
+    --shadow-md: 0 6px 18px rgba(10, 15, 30, 0.10), 0 2px 6px rgba(10, 15, 30, 0.06);
+    --shadow-lg: 0 16px 40px rgba(10, 15, 30, 0.14), 0 4px 12px rgba(10, 15, 30, 0.08);
+    --shadow-xl: 0 30px 60px rgba(10, 15, 30, 0.20), 0 8px 20px rgba(10, 15, 30, 0.10);
+
+    /* Geometry */
+    --radius-xs: 4px;
+    --radius-sm: 8px;
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+
+    /* Motion */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Typography */
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+/* ============================================
+   DARK THEME (System Preference)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --c-surface: #1a2236;
+        --c-surface-2: #111827;
+        --c-surface-3: #0a0f1e;
+        --c-text-primary: #f1f3f8;
+        --c-text-secondary: #cbd5e1;
+        --c-text-muted: #94a3b8;
+        --c-border: #243047;
+        --c-border-strong: #334155;
+        --c-indigo-pale: rgba(79, 70, 229, 0.15);
+        --c-indigo-glow: rgba(79, 70, 229, 0.35);
+
+        --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+        --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
+        --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.5);
+        --shadow-xl: 0 30px 60px rgba(0, 0, 0, 0.8), 0 8px 20px rgba(0, 0, 0, 0.6);
+
+        --c-success-bg: rgba(5, 150, 105, 0.2);
+        --c-danger-bg: rgba(220, 38, 38, 0.2);
+        --c-warning-bg: rgba(217, 119, 6, 0.2);
+        --c-info-bg: rgba(2, 132, 199, 0.2);
+    }
+}
+
+/* ============================================
+   Global Reset & Base - With !important
+   ============================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box !important;
+}
+
+body {
+    font-family: var(--font) !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    color: var(--c-text-primary) !important;
+    background: var(--c-surface-2) !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    transition: background 0.3s ease, color 0.3s ease !important;
+}
+
+a {
+    color: var(--c-indigo) !important;
+    text-decoration: none !important;
+    transition: color 0.18s ease !important;
+}
+
+a:hover {
+    color: var(--c-indigo-dark) !important;
+}
+
+/* ============================================
+   Login Page - System Theme Support
+   ============================================ */
+
+.login {
+    background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(79, 70, 229, 0.3) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(212, 168, 83, 0.18) 0%, transparent 55%),
+        var(--c-navy) !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1.5rem !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .login {
+        background:
+            radial-gradient(ellipse 80% 60% at 50% -10%, rgba(79, 70, 229, 0.5) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 40% at 80% 110%, rgba(212, 168, 83, 0.25) 0%, transparent 55%),
+            var(--c-navy) !important;
+    }
+}
+
+.login #container {
+    background: rgba(254, 254, 254, 0.96) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border-radius: var(--radius-xl) !important;
+    box-shadow: var(--shadow-xl), 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+    padding: 3rem 2.75rem 2.5rem !important;
+    max-width: 420px !important;
+    width: 100% !important;
+    animation: loginEntrance 0.5s var(--ease-out) both !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .login #container {
+        background: rgba(26, 34, 54, 0.96) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+}
+
+@keyframes loginEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.login #header {
+    background: transparent !important;
+    padding: 0 0 2rem 0 !important;
+    border: none !important;
+    text-align: center !important;
+}
+
+.login #header h1 {
+    font-size: 1.625rem !important;
+    font-weight: 800 !important;
+    color: var(--c-text-primary) !important;
+    letter-spacing: -0.04em !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+}
+
+.login #header h1 a {
+    color: inherit !important;
+}
+
+.login #header h1::before {
+    display: block !important;
+    content: '⬡' !important;
+    font-size: 2.25rem !important;
+    color: var(--c-indigo) !important;
+    margin-bottom: 0.75rem !important;
+    line-height: 1 !important;
+}
+
+.login #content {
+    padding: 0 !important;
+}
+
+.login .form-row {
+    padding: 0 !important;
+    margin-bottom: 1.125rem !important;
+    border: none !important;
+}
+
+.login .form-row label {
+    display: block !important;
+    font-weight: 600 !important;
+    font-size: 0.8125rem !important;
+    color: var(--c-text-secondary) !important;
+    letter-spacing: 0.03em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 0.4rem !important;
+}
+
+.login .form-row input[type="text"],
+.login .form-row input[type="password"] {
+    width: 100% !important;
+    padding: 0.7rem 1rem !important;
+    border: 1.5px solid var(--c-border) !important;
+    border-radius: var(--radius-sm) !important;
+    font-family: var(--font) !important;
+    font-size: 0.9375rem !important;
+    color: var(--c-text-primary) !important;
+    background: var(--c-surface) !important;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
+    outline: none !important;
+}
+
+.login .form-row input:focus {
+    border-color: var(--c-indigo) !important;
+    box-shadow: 0 0 0 3px var(--c-indigo-glow) !important;
+}
+
+.login .submit-row {
+    margin-top: 1.75rem !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+.login .submit-row input[type="submit"] {
+    display: block !important;
+    width: 100% !important;
+    padding: 0.8rem 1rem !important;
+    background: var(--c-indigo) !important;
+    color: var(--c-text-inverse) !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    font-family: var(--font) !important;
+    font-size: 0.9375rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    letter-spacing: -0.01em !important;
+    transition: background 0.18s ease, transform 0.18s var(--ease-snap), box-shadow 0.18s ease !important;
+    outline: none !important;
+}
+
+.login .submit-row input[type="submit"]:hover {
+    background: var(--c-indigo-dark) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4) !important;
+}
+
+.login .submit-row input[type="submit"]:active {
+    transform: translateY(0) !important;
+    box-shadow: none !important;
+}
+
+.login .password-reset-link {
+    text-align: center !important;
+    margin-top: 1.25rem !important;
+}
+
+.login .password-reset-link a {
+    font-size: 0.8125rem !important;
+    font-weight: 500 !important;
+    color: var(--c-text-muted) !important;
+    transition: color 0.15s ease !important;
+}
+
+.login .password-reset-link a:hover {
+    color: var(--c-indigo) !important;
+}
+
+/* ============================================
+   Admin Header (Top Nav)
+   ============================================ */
+
+#header {
+    background: var(--c-navy) !important;
+    color: var(--c-text-inverse) !important;
+    padding: 0 2rem !important;
+    height: 58px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06), var(--shadow-md) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    gap: 1.5rem !important;
+    border-bottom: none !important;
+}
+
+#header::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, var(--c-indigo), var(--c-gold), var(--c-indigo)) !important;
+    background-size: 200% 100% !important;
+    animation: shimmerBar 4s linear infinite !important;
+}
+
+@keyframes shimmerBar {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+#header a {
+    color: rgba(255, 255, 255, 0.78) !important;
+    font-weight: 500 !important;
+    transition: color 0.15s ease !important;
+}
+
+#header a:hover {
+    color: var(--c-text-inverse) !important;
+}
+
+#branding {
+    flex: 1 !important;
+}
+
+#branding h1 {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: var(--c-text-inverse) !important;
+    letter-spacing: -0.02em !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+
+#branding h1 a {
+    color: var(--c-text-inverse) !important;
+}
+
+#branding h1::before {
+    content: '⬡' !important;
+    color: var(--c-indigo) !important;
+    font-size: 1.25rem !important;
+    line-height: 1 !important;
+}
+
+#user-tools {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-size: 0.8125rem !important;
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+#user-tools a {
+    padding: 0.35rem 0.75rem !important;
+    border-radius: var(--radius-xs) !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+    white-space: nowrap !important;
+}
+
+#user-tools a:hover {
+    background: rgba(255, 255, 255, 0.14) !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
+    color: var(--c-text-inverse) !important;
+}
+
+/* ============================================
+   Breadcrumbs
+   ============================================ */
+
+.breadcrumbs {
+    background: var(--c-surface) !important;
+    padding: 0.6rem 2rem !important;
+    font-size: 0.8125rem !important;
+    color: var(--c-text-muted) !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+}
+
+.breadcrumbs a {
+    color: var(--c-text-muted) !important;
+    font-weight: 500 !important;
+}
+
+.breadcrumbs a:hover {
+    color: var(--c-indigo) !important;
+}
+
+/* ============================================
+   Content Area
+   ============================================ */
+
+#content {
+    padding: 2rem !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    background: var(--c-surface-2) !important;
+}
+
+#content-main {
+    flex: 1 !important;
+}
+
+#content h1 {
+    font-size: 1.375rem !important;
+    font-weight: 700 !important;
+    color: var(--c-text-primary) !important;
+    letter-spacing: -0.025em !important;
+    margin: 0 0 1.5rem 0 !important;
+}
+
+/* ============================================
+   Dashboard
+   ============================================ */
+
+.dashboard #content {
+    padding: 2rem !important;
+}
+
+.dashboard .module {
+    background: var(--c-surface) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: 1px solid var(--c-border) !important;
+    overflow: hidden !important;
+    margin-bottom: 1.5rem !important;
+    animation: moduleIn 0.4s var(--ease-out) both !important;
+}
+
+@keyframes moduleIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dashboard .module h2,
+.dashboard .module caption {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    background: var(--c-surface) !important;
+    padding: 0.875rem 1.25rem !important;
+    font-size: 0.8125rem !important;
+    font-weight: 700 !important;
+    color: var(--c-text-secondary) !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    margin: 0 !important;
+}
+
+.dashboard .module h2 a,
+.dashboard .module caption a {
+    color: var(--c-text-secondary) !important;
+    font-weight: 700 !important;
+}
+
+.dashboard .module table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+.dashboard .module table th {
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+    color: var(--c-text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.07em !important;
+    padding: 0.625rem 1.25rem !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    background: var(--c-surface-3) !important;
+}
+
+.dashboard .module table td {
+    padding: 0.7rem 1.25rem !important;
+    border-bottom: 1px solid var(--c-surface-3) !important;
+    color: var(--c-text-secondary) !important;
+    font-size: 0.875rem !important;
+}
+
+.dashboard .module table td a {
+    font-weight: 500 !important;
+    color: var(--c-text-primary) !important;
+}
+
+.dashboard .module table td a:hover {
+    color: var(--c-indigo) !important;
+}
+
+.dashboard .module table tr:last-child td {
+    border-bottom: none !important;
+}
+
+.dashboard .module table tr:hover td {
+    background: var(--c-indigo-pale) !important;
+}
+
+/* ============================================
+   App Index (Recent Actions)
+   ============================================ */
+
+#recent-actions-module h2 {
+    border-left: 3px solid var(--c-gold) !important;
+}
+
+/* ============================================
+   Change List
+   ============================================ */
+
+#changelist {
+    background: var(--c-surface) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: 1px solid var(--c-border) !important;
+    overflow: hidden !important;
+}
+
+#changelist-search {
+    padding: 1rem 1.25rem !important;
+    background: var(--c-surface-3) !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    display: flex !important;
+    gap: 0.5rem !important;
+}
+
+#changelist-search input[type="text"] {
+    flex: 1 !important;
+    padding: 0.55rem 0.875rem !important;
+    border: 1.5px solid var(--c-border) !important;
+    border-radius: var(--radius-xs) !important;
+    font-family: var(--font) !important;
+    font-size: 0.875rem !important;
+    background: var(--c-surface) !important;
+    color: var(--c-text-primary) !important;
+    outline: none !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+#changelist-search input[type="text"]:focus {
+    border-color: var(--c-indigo) !important;
+    box-shadow: 0 0 0 3px var(--c-indigo-glow) !important;
+}
+
+#changelist-search input[type="submit"] {
+    padding: 0.55rem 1.125rem !important;
+    background: var(--c-indigo) !important;
+    color: var(--c-text-inverse) !important;
+    border: none !important;
+    border-radius: var(--radius-xs) !important;
+    font-family: var(--font) !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background 0.15s ease !important;
+}
+
+#changelist-search input[type="submit"]:hover {
+    background: var(--c-indigo-dark) !important;
+}
+
+#changelist .actions {
+    padding: 0.75rem 1.25rem !important;
+    background: var(--c-surface-3) !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    flex-wrap: wrap !important;
+}
+
+#changelist .actions select {
+    padding: 0.425rem 0.75rem !important;
+    border: 1.5px solid var(--c-border) !important;
+    border-radius: var(--radius-xs) !important;
+    font-family: var(--font) !important;
+    font-size: 0.8125rem !important;
+    background: var(--c-surface) !important;
+    color: var(--c-text-primary) !important;
+    outline: none !important;
+    cursor: pointer !important;
+    transition: border-color 0.15s ease !important;
+}
+
+#changelist .actions select:focus {
+    border-color: var(--c-indigo) !important;
+    box-shadow: 0 0 0 3px var(--c-indigo-glow) !important;
+}
+
+#changelist .actions .button,
+#changelist .actions button {
+    padding: 0.425rem 1rem !important;
+    background: var(--c-indigo) !important;
+    color: var(--c-text-inverse) !important;
+    border: none !important;
+    border-radius: var(--radius-xs) !important;
+    font-family: var(--font) !important;
+    font-weight: 600 !important;
+    font-size: 0.8125rem !important;
+    cursor: pointer !important;
+    transition: background 0.15s ease, transform 0.15s var(--ease-snap) !important;
+}
+
+#changelist .actions .button:hover,
+#changelist .actions button:hover {
+    background: var(--c-indigo-dark) !important;
+    transform: translateY(-1px) !important;
+}
+
+#changelist table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+#changelist table thead th {
+    background: var(--c-surface-2) !important;
+    padding: 0.7rem 1rem !important;
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+    color: var(--c-text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.07em !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    white-space: nowrap !important;
+}
+
+#changelist table thead th a {
+    color: var(--c-text-muted) !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.07em !important;
+    font-size: 0.75rem !important;
+}
+
+#changelist table thead th a:hover {
+    color: var(--c-indigo) !important;
+}
+
+#changelist table thead th.sorted {
+    background: var(--c-indigo-pale) !important;
+    color: var(--c-indigo) !important;
+}
+
+#changelist table thead th.sorted a {
+    color: var(--c-indigo) !important;
+}
+
+#changelist table tbody td {
+    padding: 0.75rem 1rem !important;
+    border-bottom: 1px solid var(--c-surface-3) !important;
+    color: var(--c-text-secondary) !important;
+    font-size: 0.875rem !important;
+    vertical-align: middle !important;
+}
+
+#changelist table tbody td a {
+    font-weight: 500 !important;
+    color: var(--c-text-primary) !important;
+}
+
+#changelist table tbody td a:hover {
+    color: var(--c-indigo) !important;
+}
+
+#changelist table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+#changelist table tbody tr:hover td {
+    background: var(--c-indigo-pale) !important;
+}
+
+#changelist table .action-checkbox {
+    width: 44px !important;
+    text-align: center !important;
+}
+
+/* Checkboxes */
+input[type="checkbox"] {
+    width: 15px !important;
+    height: 15px !important;
+    accent-color: var(--c-indigo) !important;
+    cursor: pointer !important;
+    border-radius: 3px !important;
+}
+
+#changelist .paginator {
+    padding: 0.875rem 1.25rem !important;
+    background: var(--c-surface-3) !important;
+    border-top: 1px solid var(--c-border) !important;
+    font-size: 0.8125rem !important;
+    color: var(--c-text-muted) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.375rem !important;
+    flex-wrap: wrap !important;
+}
+
+#changelist .paginator a {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 0.3rem 0.7rem !important;
+    border-radius: var(--radius-xs) !important;
+    color: var(--c-text-secondary) !important;
+    font-weight: 500 !important;
+    background: var(--c-surface) !important;
+    border: 1px solid var(--c-border) !important;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+}
+
+#changelist .paginator a:hover {
+    background: var(--c-indigo) !important;
+    color: var(--c-text-inverse) !important;
+    border-color: var(--c-indigo) !important;
+}
+
+#changelist .paginator .this-page {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 0.3rem 0.7rem !important;
+    border-radius: var(--radius-xs) !important;
+    background: var(--c-indigo) !important;
+    color: var(--c-text-inverse) !important;
+    font-weight: 600 !important;
+    border: 1px solid var(--c-indigo) !important;
+}
+
+/* ============================================
+   Filter Sidebar
+   ============================================ */
+
+#changelist-filter {
+    background: var(--c-surface) !important;
+    border-radius: var(--radius) !important;
+    border: 1px solid var(--c-border) !important;
+    overflow: hidden !important;
+    min-width: 190px !important;
+    box-shadow: var(--shadow-xs) !important;
+}
+
+#changelist-filter h2 {
+    background: var(--c-navy) !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    padding: 0.7rem 1rem !important;
+    font-size: 0.6875rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    margin: 0 !important;
+    border-bottom: none !important;
+}
+
+#changelist-filter h3 {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: var(--c-text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.07em !important;
+    padding: 0.875rem 1rem 0.375rem !important;
+    margin: 0 !important;
+    border-bottom: 1px solid var(--c-surface-3) !important;
+}
+
+#changelist-filter ul {
+    list-style: none !important;
+    padding: 0.375rem 0 !important;
+    margin: 0 !important;
+}
+
+#changelist-filter ul li {
+    padding: 0 !important;
+}
+
+#changelist-filter ul li a {
+    display: block !important;
+    padding: 0.35rem 1rem !important;
+    color: var(--c-text-secondary) !important;
+    font-size: 0.8125rem !important;
+    font-weight: 400 !important;
+    transition: background 0.13s ease, color 0.13s ease, padding-left 0.13s ease !important;
+}
+
+#changelist-filter ul li a:hover {
+    background: var(--c-indigo-pale) !important;
+    color: var(--c-indigo) !important;
+    padding-left: 1.25rem !important;
+}
+
+#changelist-filter ul li.selected a {
+    color: var(--c-indigo) !important;
+    font-weight: 600 !important;
+    background: var(--c-indigo-pale) !important;
+    border-left: 2px solid var(--c-indigo) !important;
+    padding-left: calc(1rem - 2px) !important;
+}
+
+/* ============================================
+   Change Form (Edit)
+   ============================================ */
+
+.change-form #content {
+    padding: 2rem !important;
+}
+
+.change-form .module {
+    background: var(--c-surface) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: 1px solid var(--c-border) !important;
+    overflow: hidden !important;
+    margin-bottom: 1.5rem !important;
+    animation: moduleIn 0.35s var(--ease-out) both !important;
+}
+
+.change-form .module h2 {
+    background: var(--c-surface) !important;
+    padding: 1rem 1.5rem !important;
+    font-size: 0.8125rem !important;
+    font-weight: 700 !important;
+    color: var(--c-text-secondary) !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    margin: 0 !important;
+}
+
+.change-form .form-row {
+    padding: 0.875rem 1.5rem !important;
+    border-bottom: 1px solid var(--c-surface-3) !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+}
+
+.change-form .form-row:last-child {
+    border-bottom: none !important;
+}
+
+.change-form .form-row label {
+    font-weight: 600 !important;
+    font-size: 0.8125rem !important;
+    color: var(--c-text-secondary) !important;
+    min-width: 180px !important;
+    padding-top: 0.5rem !important;
+    flex-shrink: 0 !important;
+}
+
+.change-form .form-row .field-box {
+    flex: 1 !important;
+}
+
+.change-form input[type="text"],
+.change-form input[type="email"],
+.change-form input[type="url"],
+.change-form input[type="number"],
+.change-form input[type="password"],
+.change-form input[type="date"],
+.change-form input[type="time"],
+.change-form input[type="datetime-local"],
+.change-form textarea,
+.change-form select {
+    width: 100% !important;
+    padding: 0.55rem 0.875rem !important;
+    border: 1.5px solid var(--c-border) !important;
+    border-radius: var(--radius-xs) !important;
+    font-family: var(--font) !important;
+    font-size: 0.875rem !important;
+    color: var(--c-text-primary) !important;
+    background: var(--c-surface) !important;
+    outline: none !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+    max-width: 100% !important;
+}
+
+.change-form input:focus,
+.change-form textarea:focus,
+.change-form select:focus {
+    border-color: var(--c-indigo) !important;
+    box-shadow: 0 0 0 3px var(--c-indigo-glow) !important;
+}
+
+.change-form textarea {
+    min-height: 120px !important;
+    resize: vertical !important;
+    line-height: 1.6 !important;
+}
+
+.change-form .help {
+    font-size: 0.78125rem !important;
+    color: var(--c-text-muted) !important;
+    margin-top: 0.35rem !important;
+    line-height: 1.5 !important;
+}
+
+.change-form .errorlist {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0.35rem 0 0 0 !important;
+}
+
+.change-form .errorlist li {
+    font-size: 0.8125rem !important;
+    color: var(--c-danger) !important;
+    font-weight: 500 !important;
+}
+
+/* ============================================
+   Submit Row
+   ============================================ */
+
+.submit-row {
+    background: var(--c-surface-3) !important;
+    padding: 0.875rem 1.5rem !important;
+    border-top: 1px solid var(--c-border) !important;
+    border-radius: 0 0 var(--radius) var(--radius) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.625rem !important;
+    flex-wrap: wrap !important;
+}
+
+.submit-row input,
+.submit-row a.closelink,
+.submit-row a.deletelink {
+    padding: 0.5rem 1.25rem !important;
+    border: none !important;
+    border-radius: var(--radius-xs) !important;
+    font-family: var(--font) !important;
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
+    cursor: pointer !important;
+    transition: background 0.15s ease, transform 0.15s var(--ease-snap), box-shadow 0.15s ease !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+}
+
+.submit-row input[type="submit"],
+.submit-row input[name="_save"] {
+    background: var(--c-indigo) !important;
+    color: var(--c-text-inverse) !important;
+}
+
+.submit-row input[type="submit"]:hover {
+    background: var(--c-indigo-dark) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35) !important;
+}
+
+.submit-row input[name="_addanother"],
+.submit-row input[name="_continue"] {
+    background: var(--c-surface) !important;
+    color: var(--c-text-primary) !important;
+    border: 1.5px solid var(--c-border) !important;
+}
+
+.submit-row input[name="_addanother"]:hover,
+.submit-row input[name="_continue"]:hover {
+    background: var(--c-surface-3) !important;
+    border-color: var(--c-border-strong) !important;
+}
+
+.submit-row a.deletelink,
+.submit-row .deletelink-box a {
+    background: transparent !important;
+    color: var(--c-danger) !important;
+    border: 1.5px solid rgba(220, 38, 38, 0.3) !important;
+    margin-left: auto !important;
+}
+
+.submit-row a.deletelink:hover,
+.submit-row .deletelink-box a:hover {
+    background: var(--c-danger-bg) !important;
+    border-color: var(--c-danger) !important;
+}
+
+/* ============================================
+   Messages / Alerts - System Theme Support
+   ============================================ */
+
+.messagelist {
+    list-style: none !important;
+    padding: 0 2rem !important;
+    margin: 1rem 0 0 0 !important;
+}
+
+.messagelist li {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 0.625rem !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: var(--radius-sm) !important;
+    margin-bottom: 0.625rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    border: 1px solid transparent !important;
+    animation: alertIn 0.3s var(--ease-out) both !important;
+}
+
+@keyframes alertIn {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.messagelist li.success {
+    background: var(--c-success-bg) !important;
+    color: #064e3b !important;
+    border-color: rgba(5, 150, 105, 0.2) !important;
+    border-left: 3px solid var(--c-success) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .messagelist li.success {
+        color: #34d399 !important;
+    }
+}
+
+.messagelist li.error {
+    background: var(--c-danger-bg) !important;
+    color: #7f1d1d !important;
+    border-color: rgba(220, 38, 38, 0.2) !important;
+    border-left: 3px solid var(--c-danger) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .messagelist li.error {
+        color: #f87171 !important;
+    }
+}
+
+.messagelist li.warning {
+    background: var(--c-warning-bg) !important;
+    color: #78350f !important;
+    border-color: rgba(217, 119, 6, 0.2) !important;
+    border-left: 3px solid var(--c-warning) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .messagelist li.warning {
+        color: #fbbf24 !important;
+    }
+}
+
+.messagelist li.info {
+    background: var(--c-info-bg) !important;
+    color: #0c4a6e !important;
+    border-color: rgba(2, 132, 199, 0.2) !important;
+    border-left: 3px solid var(--c-info) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .messagelist li.info {
+        color: #60a5fa !important;
+    }
+}
+
+/* ============================================
+   Inline Forms
+   ============================================ */
+
+.inline-group {
+    background: var(--c-surface) !important;
+    border-radius: var(--radius) !important;
+    border: 1px solid var(--c-border) !important;
+    overflow: hidden !important;
+    margin-bottom: 1.5rem !important;
+    box-shadow: var(--shadow-xs) !important;
+}
+
+.inline-group h2 {
+    background: var(--c-surface-3) !important;
+    padding: 0.75rem 1.25rem !important;
+    font-size: 0.8125rem !important;
+    font-weight: 700 !important;
+    color: var(--c-text-secondary) !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    margin: 0 !important;
+}
+
+.inline-group .tabular.inline-related thead {
+    background: var(--c-surface-2) !important;
+}
+
+.inline-group .tabular.inline-related thead th {
+    padding: 0.55rem 0.875rem !important;
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+    color: var(--c-text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.07em !important;
+    border-bottom: 1px solid var(--c-border) !important;
+}
+
+.inline-group .tabular.inline-related tbody td {
+    padding: 0.55rem 0.875rem !important;
+    border-bottom: 1px solid var(--c-surface-3) !important;
+    vertical-align: middle !important;
+}
+
+.inline-group .tabular.inline-related tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.inline-group .tabular.inline-related .add-row {
+    background: var(--c-surface-3) !important;
+    padding: 0.625rem 1.25rem !important;
+    border-top: 1px solid var(--c-border) !important;
+}
+
+.inline-group .tabular.inline-related .add-row a {
+    color: var(--c-indigo) !important;
+    font-weight: 600 !important;
+    font-size: 0.8125rem !important;
+}
+
+.inline-group .tabular.inline-related .add-row a:hover {
+    color: var(--c-indigo-dark) !important;
+}
+
+/* ============================================
+   Object Tools
+   ============================================ */
+
+.object-tools {
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+    list-style: none !important;
+    padding: 0 !important;
+}
+
+.object-tools li a {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    padding: 0.4rem 0.875rem !important;
+    border-radius: var(--radius-xs) !important;
+    font-size: 0.8125rem !important;
+    font-weight: 600 !important;
+    transition: all 0.15s ease !important;
+    border: 1.5px solid transparent !important;
+}
+
+.object-tools li a.addlink {
+    background: var(--c-indigo) !important;
+    color: var(--c-text-inverse) !important;
+    border-color: var(--c-indigo) !important;
+}
+
+.object-tools li a.addlink:hover {
+    background: var(--c-indigo-dark) !important;
+    border-color: var(--c-indigo-dark) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3) !important;
+}
+
+.object-tools li a.historylink {
+    background: var(--c-surface) !important;
+    color: var(--c-text-secondary) !important;
+    border-color: var(--c-border) !important;
+}
+
+.object-tools li a.historylink:hover {
+    background: var(--c-surface-3) !important;
+    color: var(--c-text-primary) !important;
+    border-color: var(--c-border-strong) !important;
+}
+
+/* ============================================
+   Calendar / Date Widgets
+   ============================================ */
+
+.calendar,
+.calendarbox {
+    font-family: var(--font) !important;
+    border: 1px solid var(--c-border) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: var(--shadow-md) !important;
+    overflow: hidden !important;
+}
+
+.calendarbox h2 {
+    background: var(--c-indigo) !important;
+    color: var(--c-text-inverse) !important;
+    padding: 0.625rem 1rem !important;
+    font-size: 0.875rem !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+}
+
+/* ============================================
+   Delete Confirmation
+   ============================================ */
+
+.delete-confirmation .errornote,
+.delete-confirmation ul.object-list {
+    margin-left: 0 !important;
+}
+
+/* ============================================
+   System Theme Toggle - Hide Django's Theme Toggle
+   ============================================ */
+
+#header .theme-toggle,
+[data-theme-toggle] {
+    display: none !important;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 1024px) {
+    #content {
+        padding: 1.5rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .login #container {
+        padding: 2rem 1.5rem !important;
+        border-radius: var(--radius-lg) !important;
+    }
+
+    #header {
+        padding: 0 1rem !important;
+        height: auto !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+        padding-top: 0.625rem !important;
+        padding-bottom: 0.625rem !important;
+    }
+
+    #user-tools {
+        font-size: 0.75rem !important;
+    }
+
+    #content {
+        padding: 1rem !important;
+    }
+
+    .messagelist {
+        padding: 0 1rem !important;
+    }
+
+    #changelist table thead {
+        display: none !important;
+    }
+
+    #changelist table tbody td {
+        display: flex !important;
+        justify-content: space-between !important;
+        border-bottom: none !important;
+        padding: 0.4rem 1rem !important;
+    }
+
+    #changelist table tbody tr {
+        border-bottom: 1px solid var(--c-border) !important;
+        display: block !important;
+        padding: 0.375rem 0 !important;
+    }
+
+    .change-form .form-row {
+        flex-direction: column !important;
+        gap: 0.375rem !important;
+    }
+
+    .change-form .form-row label {
+        min-width: unset !important;
+        padding-top: 0 !important;
+    }
+
+    .submit-row {
+        gap: 0.5rem !important;
+    }
+
+    .object-tools {
+        flex-wrap: wrap !important;
+    }
+}
+
+/* ============================================
+   Utility — Loading State
+   ============================================ */
+
+.loading {
+    animation: pulse 1.6s ease-in-out infinite !important;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.45;
+    }
+}
+
+/* ============================================
+   Focus Accessibility
+   ============================================ */
+
+:focus-visible {
+    outline: 2px solid var(--c-indigo) !important;
+    outline-offset: 2px !important;
+    border-radius: 2px !important;
+}
+
+/* ============================================
+   Scrollbar (WebKit)
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--c-surface-2) !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--c-border-strong) !important;
+    border-radius: 99px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--c-text-muted) !important;
+}

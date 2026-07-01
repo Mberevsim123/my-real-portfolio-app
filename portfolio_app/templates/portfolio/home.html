@@ -1,0 +1,777 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Simon Mberevwua - Backend Engineer | Python, Django, FastAPI, AI Engineering{% endblock %}
+
+{% block meta_description %}Backend Engineer with 7+ months industry experience at Celdon Technology Limited.
+Specializing in Python, Django, FastAPI, AI-powered applications, and production-ready APIs.{% endblock %}
+
+{% block content %}
+
+<!-- ============================================
+HERO SECTION
+============================================ -->
+<section class="hero-section" id="hero">
+    <div class="site-wrapper">
+        <div class="row align-items-center">
+            <div class="col-lg-7 hero-content">
+                <span class="hero-badge">
+                    <i class="fas fa-rocket me-2"></i>Available for Hire
+                </span>
+                <h1 class="hero-title display-4 fw-bold">
+                    Backend<br>
+                    <span class="gradient-text">Engineer</span>
+                </h1>
+                <p class="hero-description lead">
+                    Building production-ready backend systems, APIs, and AI-powered applications
+                    with Python, Django, FastAPI, and modern cloud infrastructure.
+                </p>
+
+                <div class="hero-stats">
+                    <div class="d-flex gap-4">
+                        <div>
+                            <span class="counter h4 fw-bold text-white" data-target="7">0</span>
+                            <p class="text-white-50 small mb-0">Months Industry Experience</p>
+                        </div>
+                        <div>
+                            <span class="counter h4 fw-bold text-white" data-target="{{ total_projects }}">0</span>
+                            <p class="text-white-50 small mb-0">Projects Delivered</p>
+                        </div>
+                        <div>
+                            <span class="counter h4 fw-bold text-white" data-target="4">0</span>
+                            <p class="text-white-50 small mb-0">Years Software Development</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-buttons d-flex flex-wrap gap-3">
+                    <a href="{% url 'portfolio:project_list' %}" class="btn btn-primary btn-lg rounded-pill px-5">
+                        <i class="fas fa-layer-group me-2"></i>View Projects
+                    </a>
+                    <a href="{% url 'portfolio:about' %}" class="btn btn-outline-light btn-lg rounded-pill px-5">
+                        <i class="fas fa-user me-2"></i>About Me
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-5 text-center hero-image">
+                <div class="profile-image-wrapper">
+                    <div class="profile-image-circle">
+                        <div class="profile-icon-wrapper">
+                            <i class="fas fa-user-circle fa-6x"></i>
+                        </div>
+                        <div class="floating-shapes">
+                            <span class="shape shape-1"><i class="fas fa-python"></i></span>
+                            <span class="shape shape-2"><i class="fas fa-database"></i></span>
+                            <span class="shape shape-3"><i class="fas fa-cloud"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+TRUST SECTION - Key Metrics
+============================================ -->
+<section class="stats-section" id="trust">
+    <div class="site-wrapper">
+        <div class="row g-3 text-center">
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h2 class="stat-number fw-bold">7+</h2>
+                    <p class="stat-label text-muted">Months Industry Experience</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h2 class="stat-number fw-bold">{{ total_projects }}</h2>
+                    <p class="stat-label text-muted">Projects Completed</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h2 class="stat-number fw-bold">{{ total_skills }}</h2>
+                    <p class="stat-label text-muted">Technologies Mastered</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h2 class="stat-number fw-bold">4</h2>
+                    <p class="stat-label text-muted">Years Learning & Building</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+FEATURED PROJECTS
+============================================ -->
+<section class="projects-section" id="projects">
+    <div class="site-wrapper">
+        <div class="section-header text-center">
+            <span class="section-tag">Portfolio</span>
+            <h2 class="fw-bold">Featured Projects</h2>
+            <p class="section-description mx-auto">Practical backend systems, APIs, and AI-powered applications</p>
+            <div class="divider mx-auto"></div>
+        </div>
+
+        <div class="row g-4">
+            {% for project in featured_projects %}
+            <div class="col-md-4 d-flex">
+                <div class="project-card">
+                    <div class="project-image-wrapper">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}"
+                            loading="lazy">
+                        {% else %}
+                        <div class="project-placeholder">
+                            <i class="fas fa-code fa-3x"></i>
+                        </div>
+                        {% endif %}
+                        {% if project.featured %}
+                        <span class="project-badge">Featured</span>
+                        {% endif %}
+                    </div>
+                    <div class="project-content">
+                        <h5 class="project-title">{{ project.title }}</h5>
+                        <p class="project-description">{{ project.short_description|truncatewords:16 }}</p>
+
+                        <div class="tech-stack">
+                            {% for tech in project.get_technologies_list|slice:":3" %}
+                            <span class="tech-tag">{{ tech }}</span>
+                            {% endfor %}
+                            {% if project.get_technologies_list|length > 3 %}
+                            <span class="tech-tag">+{{ project.get_technologies_list|length|add:"-3" }}</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="project-actions d-flex gap-2">
+                            {% if project.live_url %}
+                            <a href="{{ project.live_url }}" target="_blank"
+                                class="btn btn-primary btn-sm rounded-pill px-3">
+                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                            </a>
+                            {% endif %}
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" target="_blank"
+                                class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                                <i class="fab fa-github me-1"></i>Source
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'portfolio:project_detail' project.slug %}"
+                                class="btn btn-ghost btn-sm rounded-pill px-3 ms-auto">
+                                Details <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
+                <h4>No featured projects available</h4>
+                <p class="text-muted">Check back soon for new projects.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center">
+            <a href="{% url 'portfolio:project_list' %}" class="btn btn-outline-primary rounded-pill px-5">
+                View All Projects <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+TECHNICAL EXPERTISE - Categorized
+============================================ -->
+<section class="skills-section" id="expertise">
+    <div class="site-wrapper">
+        <div class="section-header text-center">
+            <span class="section-tag">Expertise</span>
+            <h2 class="fw-bold">Technical Expertise</h2>
+            <p class="section-description mx-auto">Core competencies across the backend engineering spectrum</p>
+            <div class="divider mx-auto"></div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-6 col-lg-4">
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <div class="skill-icon-wrapper">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h6 class="skill-name">Backend Engineering</h6>
+                    </div>
+                    <div class="skill-badges">
+                        <span class="skill-badge">Python</span>
+                        <span class="skill-badge">Django</span>
+                        <span class="skill-badge">FastAPI</span>
+                        <span class="skill-badge">JavaScript / TS</span>
+                        <span class="skill-badge">REST APIs</span>
+                        <span class="skill-badge">Auth & AuthZ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <div class="skill-icon-wrapper">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h6 class="skill-name">AI Engineering</h6>
+                    </div>
+                    <div class="skill-badges">
+                        <span class="skill-badge">LLM Integration</span>
+                        <span class="skill-badge">AI Applications</span>
+                        <span class="skill-badge">AI Chatbots</span>
+                        <span class="skill-badge">Prompt Engineering</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <div class="skill-icon-wrapper">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h6 class="skill-name">Database Engineering</h6>
+                    </div>
+                    <div class="skill-badges">
+                        <span class="skill-badge">PostgreSQL</span>
+                        <span class="skill-badge">SQLite</span>
+                        <span class="skill-badge">Redis</span>
+                        <span class="skill-badge">Database Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <div class="skill-icon-wrapper">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h6 class="skill-name">Cloud & Deployment</h6>
+                    </div>
+                    <div class="skill-badges">
+                        <span class="skill-badge">AWS</span>
+                        <span class="skill-badge">Render</span>
+                        <span class="skill-badge">GitHub Actions</span>
+                        <span class="skill-badge">Docker</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <div class="skill-icon-wrapper">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h6 class="skill-name">Payment Integration</h6>
+                    </div>
+                    <div class="skill-badges">
+                        <span class="skill-badge">Flutterwave</span>
+                        <span class="skill-badge">Payment Gateways</span>
+                        <span class="skill-badge">Webhooks</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <div class="skill-icon-wrapper">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h6 class="skill-name">Software Architecture</h6>
+                    </div>
+                    <div class="skill-badges">
+                        <span class="skill-badge">System Design</span>
+                        <span class="skill-badge">API Architecture</span>
+                        <span class="skill-badge">Scalability</span>
+                        <span class="skill-badge">Clean Architecture</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+WHY WORK WITH ME
+============================================ -->
+<section class="values-section" id="values">
+    <div class="site-wrapper">
+        <div class="section-header text-center">
+            <span class="section-tag">Why Work With Me</span>
+            <h2 class="fw-bold">Building with Purpose</h2>
+            <p class="section-description mx-auto">What I bring to every project</p>
+            <div class="divider mx-auto"></div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-3 d-flex">
+                <div class="value-card">
+                    <div class="value-icon-wrapper">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h6 class="fw-bold">Practical Engineering</h6>
+                    <p class="small text-muted">Clean, maintainable code that solves real problems and stands
+                        the test of time.</p>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex">
+                <div class="value-card">
+                    <div class="value-icon-wrapper">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h6 class="fw-bold">Real-World Projects</h6>
+                    <p class="small text-muted">Every build is designed for production, with a focus on
+                        reliability and performance.</p>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex">
+                <div class="value-card">
+                    <div class="value-icon-wrapper">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h6 class="fw-bold">Backend Specialization</h6>
+                    <p class="small text-muted">Focused exclusively on backend systems, with deep expertise in APIs,
+                        databases, and infrastructure.</p>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex">
+                <div class="value-card">
+                    <div class="value-icon-wrapper">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h6 class="fw-bold">AI-Powered Solutions</h6>
+                    <p class="small text-muted">Integrating modern AI technologies and LLMs to build intelligent,
+                        next-generation applications.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+FINAL CTA
+============================================ -->
+<section class="cta-section" id="contact">
+    <div class="site-wrapper">
+        <div class="cta-content text-center">
+            <span class="cta-tag">Let's Connect</span>
+            <h2 class="fw-bold">Ready to Build Something<br>Amazing?</h2>
+            <p class="lead" style="color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto;">
+                I'm open to discussing backend engineering opportunities, AI-powered projects,
+                and innovative technical challenges.
+            </p>
+            <div class="cta-buttons d-flex flex-wrap justify-content-center align-items-center gap-3">
+                <a href="{% url 'portfolio:contact' %}" class="btn btn-primary btn-lg rounded-pill px-5">
+                    <i class="fas fa-paper-plane me-2"></i>Get In Touch
+                </a>
+                <a href="https://github.com/yourusername" target="_blank" class="btn btn-link-light btn-sm">
+                    <i class="fab fa-github me-2"></i>GitHub
+                </a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank" class="btn btn-link-light btn-sm">
+                    <i class="fab fa-linkedin-in me-2"></i>LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ============================================
+       SHARED SECTION RHYTHM
+       Single source of truth for vertical spacing —
+       avoids the py-5 + type-selector specificity
+       collisions from the previous version.
+    ============================================ */
+    .hero-section,
+    .stats-section,
+    .projects-section,
+    .skills-section,
+    .values-section,
+    .cta-section {
+        padding-block: clamp(2.25rem, 4vw, 3.25rem);
+    }
+
+    .section-header {
+        margin-bottom: var(--spacing-lg, 1.5rem);
+    }
+
+    .section-header .section-description {
+        margin-top: 0.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .section-header h2 {
+        margin-bottom: 0.4rem;
+        font-size: clamp(1.5rem, 2.4vw, 2rem);
+    }
+
+    .divider {
+        margin-top: 0.5rem;
+    }
+
+    /* ============================================
+       HERO
+    ============================================ */
+    .hero-section {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: var(--gradient-hero);
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.5;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        margin-bottom: 0.85rem;
+    }
+
+    .hero-title {
+        margin-bottom: 0.6rem;
+        line-height: 1.08;
+    }
+
+    .hero-description {
+        margin-bottom: 1.1rem;
+        max-width: 520px;
+    }
+
+    .hero-stats {
+        margin-bottom: 1.25rem;
+    }
+
+    .hero-stats p {
+        margin-top: 0.1rem;
+    }
+
+    .profile-image-circle {
+        position: relative;
+        width: 240px;
+        height: 240px;
+        margin: 0 auto;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition-slow);
+        box-shadow: var(--shadow-2xl);
+    }
+
+    .profile-image-circle:hover {
+        transform: scale(1.02);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ============================================
+       STATS
+    ============================================ */
+    .stat-card {
+        padding: 1rem 0.75rem;
+    }
+
+    .stat-icon-wrapper {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+        margin-bottom: 0.15rem;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+    }
+
+    /* ============================================
+       PROJECTS
+    ============================================ */
+    .project-card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .project-image-wrapper {
+        height: 150px;
+    }
+
+    .project-image-wrapper img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .project-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 1rem 1.1rem 1.1rem;
+    }
+
+    .project-title {
+        margin-bottom: 0.35rem;
+        font-size: 1.05rem;
+    }
+
+    .project-description {
+        font-size: 0.85rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 0.65rem;
+        color: var(--text-tertiary);
+    }
+
+    .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-bottom: 0.85rem;
+    }
+
+    .tech-tag {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.55rem;
+    }
+
+    .project-actions {
+        margin-top: auto;
+    }
+
+    /* ============================================
+       SKILLS — compact badge groups
+    ============================================ */
+    .skill-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-primary);
+        border-radius: var(--radius-xl);
+        padding: 1.1rem 1.25rem;
+        height: 100%;
+        transition: all var(--transition-normal);
+    }
+
+    .skill-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--border-hover);
+    }
+
+    .skill-card-header {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .skill-icon-wrapper {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-lg, 10px);
+        background: rgba(59, 130, 246, 0.08);
+        color: var(--accent-primary);
+    }
+
+    .skill-name {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+    }
+
+    .skill-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .skill-badge {
+        font-size: 0.74rem;
+        padding: 0.28rem 0.6rem;
+        border-radius: 999px;
+        background: var(--bg-elevated, rgba(255, 255, 255, 0.04));
+        border: 1px solid var(--border-primary);
+        color: var(--text-tertiary);
+        white-space: nowrap;
+    }
+
+    /* ============================================
+       VALUES
+    ============================================ */
+    .value-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-primary);
+        border-radius: var(--radius-xl);
+        padding: 1.25rem 1.1rem;
+        text-align: center;
+        transition: all var(--transition-normal);
+        width: 100%;
+    }
+
+    .value-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--border-hover);
+    }
+
+    .value-icon-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-xl);
+        background: rgba(59, 130, 246, 0.08);
+        color: var(--accent-primary);
+        font-size: 1.05rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .value-card h6 {
+        margin-bottom: 0.35rem;
+    }
+
+    .value-card p {
+        margin-bottom: 0;
+    }
+
+    /* ============================================
+       CTA
+    ============================================ */
+    .cta-content h2 {
+        margin-bottom: 0.6rem;
+    }
+
+    .cta-content .lead {
+        margin-bottom: 1.25rem;
+    }
+
+    .btn-link-light {
+        color: rgba(255, 255, 255, 0.7);
+        background: transparent;
+        border: none;
+        padding: 0.4rem 0.5rem;
+        transition: color var(--transition-fast, 0.15s ease);
+    }
+
+    .btn-link-light:hover {
+        color: #fff;
+    }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 992px) {
+        .profile-image-circle {
+            width: 200px;
+            height: 200px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .profile-image-circle {
+            width: 170px;
+            height: 170px;
+            margin-top: 1.5rem;
+        }
+
+        .hero-stats .d-flex {
+            gap: 1.25rem !important;
+        }
+
+        .value-card {
+            padding: 1.1rem 1rem;
+        }
+
+        .skill-card {
+            padding: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const counters = document.querySelectorAll('.counter');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => observer.observe(counter));
+
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 30);
+        }
+    });
+</script>
+{% endblock %}

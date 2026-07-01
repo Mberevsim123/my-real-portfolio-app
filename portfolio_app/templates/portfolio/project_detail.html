@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} - Backend Portfolio{% endblock %}
+{% block meta_description %}{{ project.short_description }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Project Header -->
+    <div class="row mb-4">
+        <div class="col-lg-8 mx-auto">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'portfolio:home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'portfolio:project_list' %}">Projects</a></li>
+                    <li class="breadcrumb-item active">{{ project.title }}</li>
+                </ol>
+            </nav>
+
+            <h1 class="display-5 fw-bold mb-3">{{ project.title }}</h1>
+            <div class="d-flex gap-3 mb-3">
+                <span class="badge bg-primary">{{ project.category.name }}</span>
+                <span class="text-muted">
+                    <i class="far fa-calendar-alt me-1"></i> {{ project.created_at|date:"F Y" }}
+                </span>
+                <span class="text-muted">
+                    <i class="fas fa-eye me-1"></i> {{ project.views_count }} views
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Featured Image -->
+            {% if project.image %}
+            <div class="mb-4">
+                <img src="{{ project.image.url }}" class="img-fluid rounded shadow-sm"
+                    alt="{{ project.image_alt|default:project.title }}" loading="lazy">
+            </div>
+            {% endif %}
+
+            <!-- Project Description -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h3 class="fw-bold mb-3">Project Overview</h3>
+                    <p class="lead">{{ project.short_description }}</p>
+                    <div class="project-description">
+                        {{ project.description|linebreaks }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Images -->
+            {% if additional_images %}
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="fw-bold mb-3">Project Gallery</h4>
+                    <div class="row">
+                        {% for img in additional_images %}
+                        <div class="col-md-6 mb-3">
+                            <img src="{{ img.image.url }}" class="img-fluid rounded" alt="{{ img.caption }}"
+                                loading="lazy">
+                            {% if img.caption %}
+                            <p class="text-muted small mt-1">{{ img.caption }}</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Project Info Card -->
+            <div class="card shadow-sm mb-4 sticky-top" style="top: 100px;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Project Info</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <strong><i class="fas fa-tag me-2"></i>Category:</strong>
+                        <p class="mb-0">{{ project.category.name }}</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong><i class="fas fa-code me-2"></i>Technologies:</strong>
+                        <div class="mt-2">
+                            {% for tech in project.get_technologies_list %}
+                            <span class="badge bg-light text-dark me-1 mb-1">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% if project.github_url or project.live_url or project.documentation_url %}
+                    <div class="mb-3">
+                        <strong><i class="fas fa-link me-2"></i>Links:</strong>
+                        <div class="mt-2">
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" target="_blank"
+                                class="btn btn-sm btn-outline-dark w-100 mb-2">
+                                <i class="fab fa-github me-2"></i>View Source Code
+                            </a>
+                            {% endif %}
+                            {% if project.live_url %}
+                            <a href="{{ project.live_url }}" target="_blank" class="btn btn-sm btn-primary w-100 mb-2">
+                                <i class="fas fa-external-link-alt me-2"></i>Live Demo
+                            </a>
+                            {% endif %}
+                            {% if project.documentation_url %}
+                            <a href="{{ project.documentation_url }}" target="_blank" class="btn btn-sm btn-info w-100">
+                                <i class="fas fa-book me-2"></i>Documentation
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <strong><i class="fas fa-chart-line me-2"></i>Stats:</strong>
+                        <div class="mt-2">
+                            <div class="progress mb-2" style="height: 5px;">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                            <small class="text-muted">Total Views: {{ project.views_count }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Projects -->
+            {% if related_projects %}
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="fas fa-project-diagram me-2"></i>Related Projects</h5>
+                </div>
+                <div class="card-body">
+                    {% for related in related_projects %}
+                    <div class="related-project mb-3 pb-3 border-bottom">
+                        <div class="d-flex">
+                            {% if related.image %}
+                            <img src="{{ related.image.url }}" class="rounded me-3"
+                                style="width: 60px; height: 60px; object-fit: cover;" alt="{{ related.title }}"
+                                loading="lazy">
+                            {% endif %}
+                            <div>
+                                <h6 class="mb-1"><a href="{% url 'portfolio:project_detail' related.slug %}"
+                                        class="text-decoration-none">{{ related.title }}</a></h6>
+                                <small class="text-muted">{{ related.short_description|truncatewords:10 }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% block extra_css %}
+<style>
+    .sticky-top {
+        z-index: 1;
+    }
+
+    .project-description {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+
+    .project-description h2,
+    .project-description h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .project-description pre {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-x: auto;
+    }
+
+    .related-project:last-child {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+    }
+</style>
+{% endblock %}
+{% endblock %}
